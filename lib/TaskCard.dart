@@ -5,10 +5,15 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
                       alignment: Alignment.center,
-                      child: RaisedButton(
-                          onPressed: null,
-                          child: Text('Task',
-                              style: TextStyle(color: Colors.white))),
+                      child: Column(
+                        children: <Widget>[
+                          Text('data'),
+                          RaisedButton(
+                              onPressed: null,
+                              child: Text('Task',
+                                  style: TextStyle(color: Colors.white))),
+                        ],
+                      ),
     );
   }
 }

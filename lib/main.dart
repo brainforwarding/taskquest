@@ -38,7 +38,7 @@ class HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   //crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     TaskCard(),
@@ -46,7 +46,7 @@ class HomePageState extends State<HomePage> {
                   ],
                 ),
           Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     //crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       TaskCard(),
