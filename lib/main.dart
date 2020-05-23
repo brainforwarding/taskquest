@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './TaskCard.dart';
 
 void main() => runApp(new MyApp());
 
@@ -38,32 +39,20 @@ class HomePageState extends State<HomePage> {
         children: <Widget>[
           Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  //crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      child: RaisedButton(
-                          onPressed: null,
-                          child: Text('Task',
-                              style: TextStyle(color: Colors.white))),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: RaisedButton(
-                          onPressed: null,
-                          child: Text('Task',
-                              style: TextStyle(color: Colors.white))),
-                    )
+                    TaskCard(),
+                    TaskCard()
                   ],
                 ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                  onPressed: null,
-                  child: Text('Task',
-                      style: TextStyle(color: Colors.white)))
-            ],
-          ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      TaskCard(),
+                      TaskCard()
+                    ],
+                ),
         ],
       ),
     );
