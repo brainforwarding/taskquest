@@ -34,27 +34,15 @@ class HomePageState extends State<HomePage> {
     return new Scaffold(
       appBar: AppBar(title: const Text("TASKS")),
       backgroundColor: Colors.white,
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    TaskCard(),
-                    TaskCard()
-                  ],
-                ),
-          Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      TaskCard(),
-                      TaskCard()
-                    ],
-                ),
-        ],
-      ),
-    );
+      body: GridView.count(
+  primary: false,
+  padding: const EdgeInsets.all(20),
+  crossAxisSpacing: 10,
+  mainAxisSpacing: 10,
+  crossAxisCount: 2,
+  children: <Widget>[
+    TaskCard(),
+    TaskCard()],
+    ));
   }
 }

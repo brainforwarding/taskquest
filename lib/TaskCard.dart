@@ -4,16 +4,14 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: <Widget>[
-                          Text('data'),
-                          RaisedButton(
-                              onPressed: null,
-                              child: Text('Task',
-                                  style: TextStyle(color: Colors.white))),
-                        ],
-                      ),
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: <Widget>[
+          const Text("Task name"),
+          RaisedButton(onPressed: null),
+        ],
+      ),
+      color: Colors.teal[100],
     );
   }
 }
