@@ -31,17 +31,41 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: const Text("Task Quest")),
+      appBar: AppBar(title: const Text("TASKS")),
       backgroundColor: Colors.white,
-      body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                RaisedButton(
-                    onPressed: null,
-                    child: Text('Task',
-                        style: TextStyle(color: Colors.white)))
-              ],
-            ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                          onPressed: null,
+                          child: Text('Task',
+                              style: TextStyle(color: Colors.white))),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                          onPressed: null,
+                          child: Text('Task',
+                              style: TextStyle(color: Colors.white))),
+                    )
+                  ],
+                ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                  onPressed: null,
+                  child: Text('Task',
+                      style: TextStyle(color: Colors.white)))
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
