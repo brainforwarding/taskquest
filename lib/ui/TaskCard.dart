@@ -13,6 +13,7 @@ class TaskCard extends StatefulWidget {
 
 class _TaskCardState extends State<TaskCard> {
   Color backgroundColor = Color(0xFFEEF7FE);
+  String buttonText = "Done!";
 
   String getSubjectImage() {
     print('generating');
@@ -23,22 +24,15 @@ class _TaskCardState extends State<TaskCard> {
   }
 
   void clearTask() {
-    setState(() {
-      backgroundColor = Color(0xFFFEEEEE);
-      myButton(0);
-    });
-  }
-
-  Widget myButton(value) {
-    if (value == 1) {
-      return RaisedButton(
-          onPressed: clearTask,
-          child: Text('Done!', style: TextStyle(color: Colors.white)));
+    if (buttonText == "Done!") {
+      setState(() {
+        backgroundColor = Color(0xFFFEEEEE);
+        buttonText = "Undo";
+      });
     } else {
       setState(() {
-        return RaisedButton(
-            onPressed: null,
-            child: Text('Revert', style: TextStyle(color: Colors.white)));
+        backgroundColor = Color(0xFFEEF7FE);
+        buttonText = "Done!";
       });
     }
   }
@@ -49,7 +43,6 @@ class _TaskCardState extends State<TaskCard> {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           color: backgroundColor,
-          //border: Border.all(color: Colors.orangeAccent[100]),
           borderRadius: new BorderRadius.circular(10.0)),
       child: Column(
         children: <Widget>[
@@ -63,16 +56,15 @@ class _TaskCardState extends State<TaskCard> {
                   color: Colors.grey[700],
                   fontStyle: FontStyle.italic,
                   fontSize: 15)),
-          //new Text(subject),
           new Image.asset(
-              // change images based on input DONE
               getSubjectImage(),
               height: 25,
               width: 25),
-          myButton(1),
+          RaisedButton(
+              onPressed: clearTask,
+              child: Text(buttonText, style: TextStyle(color: Colors.white))),
           new Text(widget.title),
           new Text(widget.description),
-          //RaisedButton(onPressed: null),
         ],
       ),
     );

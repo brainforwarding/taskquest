@@ -19,20 +19,3 @@ class _MyAppState extends State<MyApp> {
                 TextTheme(headline6: TextStyle(color: Colors.white))));
   }
 }
-/*
-class HomePage extends StatefulWidget {
-
-//data and variables from other pages
-
-  @override
-  State<StatefulWidget> createState() {
-    return new HomePageState();
-  }
-}
-
-class HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-  }
-}
-*/
