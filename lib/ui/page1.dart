@@ -47,7 +47,7 @@ class _Page1State extends State<Page1> {
           children: 
           <Widget>
           [...allTasks.map((item) => TaskCard(
-                  item['title'],item['description'],))
+                  item['title'],item['description'],item['subject']))
               .toList(),]
         ) :  Center(child: CircularProgressIndicator(),),        
     );
