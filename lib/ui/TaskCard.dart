@@ -18,7 +18,7 @@ class TaskCard extends StatelessWidget {
   //String setSubject() {
     //if (subject=='math')
   //}
-
+ 
   @override
   Widget build(BuildContext context) {
     return Container(      
@@ -50,6 +50,9 @@ class TaskCard extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white
               ))), 
+          new Text(title),
+          new Text(description),
+          //RaisedButton(onPressed: null),
         ],
       ),
     );
