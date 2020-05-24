@@ -19,13 +19,25 @@ class TaskCard extends StatelessWidget {
   //if (subject=='math')
   //}
 
+  //Color(0xFFFEEEEE) light red (art)
+  //Color(0xFFAC4040) dark red
+
+  //Color(0xFFEEF7FE) light blue (art)
+  //Color(0xFF415EB6) dark blue
+
+  //Color(0xFFFDF7E0) light yellow (art)
+  //Color(0xFFA57105) dark yellow (art)
+  
+  //Color(0xFFF0FFFF) light green (art)
+  //Color(0xFF158E8E) dark green (art)
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: Colors.orangeAccent[100],
-          border: Border.all(color: Colors.orangeAccent[100]),
+          color: Color(0xFFFDF7E0),
+          //border: Border.all(color: Colors.orangeAccent[100]),
           borderRadius: new BorderRadius.circular(10.0)),
       child: Column(
         children: <Widget>[

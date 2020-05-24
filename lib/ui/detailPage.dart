@@ -48,7 +48,7 @@ class _TaskDetailState extends State<TaskDetail> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 80),
                       textAlign: TextAlign.left,
                     ),
-                    color: Color.fromRGBO(254,238,238,1.0),
+                    color: Color(0xFFFEEEEE),
                     width: double.infinity,
                   ),
                   flex: 3,
