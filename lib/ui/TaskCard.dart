@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TaskCard extends StatelessWidget {
   final String title;
   final String description;
-  final String subject;
-  TaskCard(this.title, this.description, this.subject);
+
+  TaskCard(this.title, this.description);
  
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class TaskCard extends StatelessWidget {
         children: <Widget>[
           new Text(title),
           new Text(description),
-          RaisedButton(onPressed: null),
+          //RaisedButton(onPressed: null),
         ],
       ),
       color: Colors.teal[100],

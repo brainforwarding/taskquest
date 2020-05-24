@@ -1,6 +1,8 @@
 import 'package:covidtasklist/resources/httpRequests.dart';
 import 'package:covidtasklist/ui/menu.dart';
 import 'package:flutter/material.dart';
+import 'package:covidtasklist/ui/TaskCard.dart';
+
 
 class Page1 extends StatefulWidget {
 
@@ -36,6 +38,32 @@ class _Page1State extends State<Page1> {
         child: Menu(),
       ),
       body: allTasks != null ? 
+        GridView.count(
+          primary: false,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          children: 
+          <Widget>
+          [...allTasks.map((item) => TaskCard(
+                  item['title'],item['description'],))
+              .toList(),]
+        ) :  Center(child: CircularProgressIndicator(),),        
+    );
+  }
+}
+
+/*
+Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Page 1'),
+      ),
+      drawer: Drawer(
+        child: Menu(),
+      ),
+      body: allTasks != null ? 
         ListView.builder(
           itemCount: allTasks.length,
           itemBuilder: (BuildContext context, int index) {
@@ -52,4 +80,4 @@ class _Page1State extends State<Page1> {
         ) :  Center(child: CircularProgressIndicator(),),        
     );
   }
-}
+}*/

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:covidtasklist/ui/page1.dart';
-import './TaskCard.dart';
 
 void main() => runApp(new MyApp());
 
@@ -32,7 +31,10 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  final List taskList = [
+  @override
+  Widget build(BuildContext context) {
+  }
+  /*final List taskList = [
     {
       'title': 'title 1',
       'description': 'description 1',
@@ -68,4 +70,5 @@ class HomePageState extends State<HomePage> {
               .toList(),]
         ));
   }
+  */
 }
