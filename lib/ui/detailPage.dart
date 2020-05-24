@@ -56,26 +56,32 @@ class _TaskDetailState extends State<TaskDetail> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                  "Paint the Mona Lisa. It has to look EXACTLY like the real one. If necessary take a plane to Paris and take a good look at it. Remember to breathe and do not take more time than allowed.")
+                                "Paint the Mona Lisa. It has to look EXACTLY like the real one. If necessary take a plane to Paris and take a good look at it. Remember to breathe and do not take more time than allowed.",
+                              style: TextStyle(
+                                      fontSize: 17),
+                                  textAlign: TextAlign.left,)
                             ],
                           ),
                           flex: 1,
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:20),
+                            padding: const EdgeInsets.only(left: 20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              
                               children: <Widget>[
                                 Text(
                                   '20',
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30),
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  'minutos',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  'minutes',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
                                   textAlign: TextAlign.left,
                                 ),
                               ],
@@ -86,7 +92,7 @@ class _TaskDetailState extends State<TaskDetail> {
                       ],
                     ),
                   ),
-                  flex: 4,
+                  flex: 5,
                 ),
                 Container(
                   child: new RaisedButton(
