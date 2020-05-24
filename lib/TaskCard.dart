@@ -15,9 +15,9 @@ class TaskCard extends StatelessWidget {
       return 'assets/images/artLogo.png';
   }
 
-  String setSubject() {
-    if (subject=='math')
-  }
+  //String setSubject() {
+    //if (subject=='math')
+  //}
 
   @override
   Widget build(BuildContext context) {
