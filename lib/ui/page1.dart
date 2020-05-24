@@ -53,31 +53,3 @@ class _Page1State extends State<Page1> {
     );
   }
 }
-
-/*
-Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Page 1'),
-      ),
-      drawer: Drawer(
-        child: Menu(),
-      ),
-      body: allTasks != null ? 
-        ListView.builder(
-          itemCount: allTasks.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              margin: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Text(allTasks[index]['title']),
-                  Text(allTasks[index]['description'])
-                ],
-              ),
-            );
-          }
-        ) :  Center(child: CircularProgressIndicator(),),        
-    );
-  }
-}*/
