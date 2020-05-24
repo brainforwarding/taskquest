@@ -40,16 +40,23 @@ class _TaskDetailState extends State<TaskDetail> {
               child: Column(children: <Widget>[
                 Expanded(
                   child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 20, bottom: 20),
                     child: Text(
                       'Arts',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 80),
                       textAlign: TextAlign.left,
                     ),
+                    color: Color.fromRGBO(254,238,238,1.0),
+                    width: double.infinity,
                   ),
                   flex: 3,
                 ),
                 Expanded(
                   child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 20, bottom: 20),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -57,9 +64,9 @@ class _TaskDetailState extends State<TaskDetail> {
                             children: <Widget>[
                               Text(
                                 "Paint the Mona Lisa. It has to look EXACTLY like the real one. If necessary take a plane to Paris and take a good look at it. Remember to breathe and do not take more time than allowed.",
-                              style: TextStyle(
-                                      fontSize: 17),
-                                  textAlign: TextAlign.left,)
+                                style: TextStyle(fontSize: 17),
+                                textAlign: TextAlign.left,
+                              )
                             ],
                           ),
                           flex: 1,
@@ -101,6 +108,11 @@ class _TaskDetailState extends State<TaskDetail> {
                       'Marcar como completada',
                       style: TextStyle(fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
+                      
+                    ),
+                    shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          //side: BorderSide(color: Colors.cyan),
                     ),
                   ),
                 ),
