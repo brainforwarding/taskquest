@@ -62,11 +62,18 @@ class _TaskDetailState extends State<TaskDetail> {
                         Expanded(
                           child: Column(
                             children: <Widget>[
+                              Container(
+                                  child: Text(
+                                    "Paint for 20 minutes",
+                                    style: TextStyle(fontSize: 17),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  padding: const EdgeInsets.only(bottom: 20)),
                               Text(
                                 "Paint the Mona Lisa. It has to look EXACTLY like the real one. If necessary take a plane to Paris and take a good look at it. Remember to breathe and do not take more time than allowed.",
                                 style: TextStyle(fontSize: 17),
                                 textAlign: TextAlign.left,
-                              )
+                              ),
                             ],
                           ),
                           flex: 1,
@@ -108,11 +115,10 @@ class _TaskDetailState extends State<TaskDetail> {
                       'Marcar como completada',
                       style: TextStyle(fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
-                      
                     ),
                     shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          //side: BorderSide(color: Colors.cyan),
+                      borderRadius: BorderRadius.circular(18.0),
+                      //side: BorderSide(color: Colors.cyan),
                     ),
                   ),
                 ),

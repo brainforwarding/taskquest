@@ -1,52 +1,64 @@
 import 'package:flutter/material.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends StatefulWidget {
   final String title;
   final String description;
   final String subject;
+
   TaskCard(this.title, this.description, this.subject);
 
-  // chooses image
+  @override
+  _TaskCardState createState() => _TaskCardState();
+}
+
+class _TaskCardState extends State<TaskCard> {
+  Color backgroundColor = Color(0xFFEEF7FE);
+
   String getSubjectImage() {
     print('generating');
-    if (subject == 'math')
+    if (widget.subject == 'math')
       return 'assets/images/mathLogo.png';
     else
       return 'assets/images/artLogo.png';
   }
 
-  //String setSubject() {
-  //if (subject=='math')
-  //}
+  void clearTask() {
+    setState(() {
+      backgroundColor = Color(0xFFFEEEEE);
+      myButton(0);
+    });
+  }
 
-  //Color(0xFFFEEEEE) light red (art)
-  //Color(0xFFAC4040) dark red
-
-  //Color(0xFFEEF7FE) light blue (art)
-  //Color(0xFF415EB6) dark blue
-
-  //Color(0xFFFDF7E0) light yellow (art)
-  //Color(0xFFA57105) dark yellow (art)
-  
-  //Color(0xFFF0FFFF) light green (art)
-  //Color(0xFF158E8E) dark green (art)
+  Widget myButton(value) {
+    if (value == 1) {
+      return RaisedButton(
+          onPressed: clearTask,
+          child: Text('Done!', style: TextStyle(color: Colors.white)));
+    } else {
+      setState(() {
+        return RaisedButton(
+            onPressed: null,
+            child: Text('Revert', style: TextStyle(color: Colors.white)));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: Color(0xFFFDF7E0),
+          color: backgroundColor,
           //border: Border.all(color: Colors.orangeAccent[100]),
           borderRadius: new BorderRadius.circular(10.0)),
       child: Column(
         children: <Widget>[
-          new Text(title,
+          new Text(widget.title,
               style: TextStyle(
                   color: Colors.blue[900],
                   fontWeight: FontWeight.w900,
                   fontSize: 30)),
-          new Text(description,
+          new Text(widget.description,
               style: TextStyle(
                   color: Colors.grey[700],
                   fontStyle: FontStyle.italic,
@@ -57,11 +69,9 @@ class TaskCard extends StatelessWidget {
               getSubjectImage(),
               height: 25,
               width: 25),
-          RaisedButton(
-              onPressed: null,
-              child: Text('Done!', style: TextStyle(color: Colors.white))),
-          new Text(title),
-          new Text(description),
+          myButton(1),
+          new Text(widget.title),
+          new Text(widget.description),
           //RaisedButton(onPressed: null),
         ],
       ),
