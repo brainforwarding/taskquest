@@ -6,67 +6,158 @@ class TaskCard extends StatefulWidget {
   final String subject;
 
   TaskCard(this.title, this.description, this.subject);
-
+  
   @override
   _TaskCardState createState() => _TaskCardState();
 }
 
 class _TaskCardState extends State<TaskCard> {
-  Color backgroundColor = Color(0xFFEEF7FE);
-  String buttonText = "Done!";
-
-  String getSubjectImage() {
-    print('generating');
+  bool completeStatus = false;
+  Color backgroundColor;
+  Color fontColor;
+  String iconAddress;
+  String buttonText;
+  
+// setState DONE
+// ajustar iconos DONE
+// ajustar fonts 
+// eliminar botón DONE
+// mover ícono a izquierda DONE
+// cajas flexibles
+  /*String getSubjectImage() { // cambiar ícono por subject
     if (widget.subject == 'math')
+      //backgroundColor = Color(0xFFEEF7FE);
       return 'assets/images/mathLogo.png';
     else
+      //backgroundColor = Color(0xFFFEEEEE);
       return 'assets/images/artLogo.png';
+  } */
+
+  // colors and logo by subject
+  void colorVivid() { // colors by subject
+    setState(() {
+      buttonText = "Done!";
+      if (widget.subject == 'math') {
+        backgroundColor = Color(0xFFEEF7FE);
+        fontColor = Color(0xFF415EB6);
+        iconAddress = 'assets/images/mathLogo.png';
+      }
+      else if (widget.subject == 'arts') {
+        backgroundColor = Color(0xFFFEEEEE);
+        fontColor = Color(0xFFAC4040);
+        iconAddress = 'assets/images/artLogo.png';
+      }
+      else if (widget.subject == 'hist') {
+        backgroundColor = Color(0xFFFDF7E0);
+        fontColor = Color(0xFFA57105);
+        iconAddress = 'assets/images/histLogo.png';
+      }
+      else {
+      // else if (widget.subject == 'sports') {
+        backgroundColor = Color(0xFFF0FFFF);
+        fontColor = Color(0xFF158E8E);
+        iconAddress = 'assets/images/sportsLogo.png';
+      }
+    }
+    );
+  }
+
+// make colors gray after clicking
+  void colorDull() { // click gray colors
+    setState(() {
+      //print("making colors dull");
+      buttonText = "Undo";
+      backgroundColor = Color(0xFFEEEEEE);
+      if (widget.subject == 'math') {
+        iconAddress = 'assets/images/mathLogoDull.png';
+        fontColor = Color(0x40415EB6);
+      }
+      else if (widget.subject == 'arts') {
+        iconAddress = 'assets/images/artLogoDull.png';
+        fontColor = Color(0x40AC4040);
+      }
+      else if (widget.subject == 'hist') {
+        iconAddress = 'assets/images/histLogoDull.png';
+        fontColor = Color(0x40A57105);
+      }
+      else {
+      // else if (widget.subject == 'sports') {
+        iconAddress = 'assets/images/sportsLogoDull.png';
+        fontColor = Color(0x40158E8E);
+      }
+    }
+    );
+  }
+
+// set initial colors based on status
+  void initialColors() {
+    print("subject is ");
+    print(widget.subject);
+    if (completeStatus == false) {
+      print("colors will be vivid");
+      setState(() {
+        colorVivid();
+      });
+    }
+    if (completeStatus == true) {
+      print("colors will be dull");
+      setState(() {
+        colorDull();
+      });
+    }
   }
 
   void clearTask() {
-    if (buttonText == "Done!") {
+    if (completeStatus == true) {
       setState(() {
-        backgroundColor = Color(0xFFFEEEEE);
-        buttonText = "Undo";
+        colorDull();
+        completeStatus = false;
       });
-    } else {
+    } else if (completeStatus == false) {
       setState(() {
-        backgroundColor = Color(0xFFEEF7FE);
-        buttonText = "Done!";
+        colorVivid();
+        completeStatus = true;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: new BorderRadius.circular(10.0)),
-      child: Column(
-        children: <Widget>[
-          new Text(widget.title,
-              style: TextStyle(
-                  color: Colors.blue[900],
-                  fontWeight: FontWeight.w900,
-                  fontSize: 30)),
-          new Text(widget.description,
-              style: TextStyle(
-                  color: Colors.grey[700],
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15)),
-          new Image.asset(
-              getSubjectImage(),
-              height: 25,
-              width: 25),
-          RaisedButton(
-              onPressed: clearTask,
-              child: Text(buttonText, style: TextStyle(color: Colors.white))),
-          new Text(widget.title),
-          new Text(widget.description),
-        ],
-      ),
-    );
+    initialColors();
+    return new GestureDetector(
+      onTap: (){
+          print("Container clicked");
+          clearTask();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: new BorderRadius.circular(30.0)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Image.asset(
+                iconAddress,
+                height: 25,
+                width: 25),
+            new Text(widget.title,
+                style: TextStyle(
+                    color: fontColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,)),
+            new Text(widget.description,
+                style: TextStyle(
+                    color: fontColor,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 10)),      
+            //RaisedButton(
+              //  onPressed: clearTask,
+            //    child: Text(buttonText, style: TextStyle(color: Colors.white))),
+          ],
+        ),
+    ));
   }
 }
