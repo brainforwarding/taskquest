@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:covidtasklist/ui/TaskCard.dart';
 
 
-class Page1 extends StatefulWidget {
+class TasksPage extends StatefulWidget {
 
   @override
-  _Page1State createState() => _Page1State();
+  _TasksPageState createState() => _TasksPageState();
 }
 
-class _Page1State extends State<Page1> {
+class _TasksPageState extends State<TasksPage> {
 
   @override 
   void initState() {    

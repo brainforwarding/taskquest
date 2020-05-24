@@ -3,12 +3,12 @@ import 'package:covidtasklist/ui/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:covidtasklist/ui/studentRecord.dart';
 
-class Page3 extends StatefulWidget {
+class StudentsProgressPage extends StatefulWidget {
   @override
-  _Page3State createState() => _Page3State();
+  _StudentsProgressPageState createState() => _StudentsProgressPageState();
 }
 
-class _Page3State extends State<Page3> {
+class _StudentsProgressPageState extends State<StudentsProgressPage> {
   @override
   void initState() {
     super.initState();

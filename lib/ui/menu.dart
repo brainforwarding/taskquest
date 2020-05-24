@@ -1,6 +1,7 @@
-import 'package:covidtasklist/ui/page1.dart';
-import 'package:covidtasklist/ui/page2.dart';
-import 'package:covidtasklist/ui/page3.dart';
+import 'package:covidtasklist/ui/detailPage.dart';
+import 'package:covidtasklist/ui/tasksPage.dart';
+import 'package:covidtasklist/ui/inputPage.dart';
+import 'package:covidtasklist/ui/progressPage.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatelessWidget {
@@ -26,14 +27,21 @@ class Menu extends StatelessWidget {
           leading: Icon(Icons.message),
           title: Text('Tasks'),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => TasksPage()));
           },
         ),
         ListTile(
           leading: Icon(Icons.graphic_eq),
           title: Text('Student\'s Progress'),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Page3()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => StudentsProgressPage()));
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.maximize),
+          title: Text('TaskDetail'),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetail()));
           },
         ),
         ListTile(

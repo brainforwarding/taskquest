@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:covidtasklist/ui/page1.dart';
-import 'package:covidtasklist/ui/TaskCard.dart';
+import 'package:covidtasklist/ui/tasksPage.dart';
 
 void main() => runApp(new MyApp());
 
@@ -13,14 +12,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-        home: new Page1(),
+        home: new TasksPage(),
         theme: new ThemeData(
             primarySwatch: Colors.lightBlue,
             primaryTextTheme:
                 TextTheme(headline6: TextStyle(color: Colors.white))));
   }
 }
-
+/*
 class HomePage extends StatefulWidget {
 
 //data and variables from other pages
@@ -36,3 +35,4 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
   }
 }
+*/
