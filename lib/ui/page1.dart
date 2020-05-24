@@ -32,7 +32,7 @@ class _Page1State extends State<Page1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 1'),
+        title: Text('TASKS'),
       ),
       drawer: Drawer(
         child: Menu(),

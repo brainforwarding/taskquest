@@ -24,7 +24,7 @@ class _Page2State extends State<Page2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 2'),
+        title: Text('Input'),
       ),
       drawer: Drawer(
         child: Menu(),

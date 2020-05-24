@@ -24,23 +24,23 @@ class Menu extends StatelessWidget {
         ),
         ListTile(
           leading: Icon(Icons.message),
-          title: Text('Page 1'),
+          title: Text('Tasks'),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
           },
         ),
         ListTile(
-          leading: Icon(Icons.account_circle),
-          title: Text('Page 2'),
+          leading: Icon(Icons.graphic_eq),
+          title: Text('Student\'s Progress'),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Page2()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Page3()));
           },
         ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Page 3'),
+          leading: Icon(Icons.mail),
+          title: Text('Input'),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Page3()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Page2()));
           },
         ),
       ],

@@ -3,19 +3,16 @@ import 'package:covidtasklist/ui/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:covidtasklist/ui/studentRecord.dart';
 
-
 class Page3 extends StatefulWidget {
-
   @override
   _Page3State createState() => _Page3State();
 }
 
 class _Page3State extends State<Page3> {
-
-  @override 
-  void initState() {    
+  @override
+  void initState() {
     super.initState();
-    getTasks(); 
+    getTasks();
   }
 
   getTasks() async {
@@ -32,24 +29,71 @@ class _Page3State extends State<Page3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page 1'),
+        title: Text('Students\'s Daily Progress'),
       ),
       drawer: Drawer(
         child: Menu(),
       ),
-      body: allTasks != null ? 
-        GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-          children:
-          <Widget>
-          [...allTasks.map((item) => StudentRecord(/*
-                  item['title'],item['description'],*/))
-              .toList(),]
-        ) :  Center(child: CircularProgressIndicator(),),        
+      body: allTasks != null
+          ? ListView(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 20, bottom: 8),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'Nombre',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        flex: 5,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'tarea 1',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        flex: 2,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'tarea 2',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        flex: 2,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'tarea 3',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        flex: 2,
+                      ),
+                    ],
+                  ),
+                ),
+                ...allTasks.map((item) => StudentRecord(
+                    /*
+                    item['title'],item['description'],*/
+                    )).toList(),
+              ],
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
