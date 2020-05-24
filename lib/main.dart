@@ -28,7 +28,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,8 +40,9 @@ class HomePageState extends State<HomePage> {
   mainAxisSpacing: 10,
   crossAxisCount: 2,
   children: <Widget>[
-    TaskCard(),
-    TaskCard()],
+    // final String text = "hellowidget";
+    TaskCard('Maths','30 minutes exercise','math'),
+    TaskCard('Arts','40 minutes drawing','art')],
     ));
   }
 }
