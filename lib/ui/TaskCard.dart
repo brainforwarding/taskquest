@@ -121,6 +121,51 @@ class _TaskCardState extends State<TaskCard> {
     }
   }
 
+  // main content on left part of card
+  /* final Flexible cardContent (
+    child:
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Image.asset(
+              iconAddress,
+              height: 25,
+              width: 25),
+          new Text(widget.title,
+              style: TextStyle(
+                  color: fontColor,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,)),
+          new Text(widget.description,
+              style: TextStyle(
+                  color: fontColor,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 10)),      
+        ],
+      ),
+  );
+
+  // checkmark on right side of card
+  final checkMark = new Container (
+    child:    
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget> [
+          Visibility(
+            child:
+              new Image.asset(
+                  'assets/images/check.png',
+                  height: 40,
+                  width: 40),
+            visible: completeStatus,
+          ),
+        ]
+      ),
+  ); */
+
   @override
   Widget build(BuildContext context) {
     initialColors();
@@ -129,35 +174,61 @@ class _TaskCardState extends State<TaskCard> {
           print("Container clicked");
           clearTask();
       },
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: new BorderRadius.circular(30.0)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Image.asset(
-                iconAddress,
-                height: 25,
-                width: 25),
-            new Text(widget.title,
-                style: TextStyle(
-                    color: fontColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,)),
-            new Text(widget.description,
-                style: TextStyle(
-                    color: fontColor,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 10)),      
-            //RaisedButton(
-              //  onPressed: clearTask,
-            //    child: Text(buttonText, style: TextStyle(color: Colors.white))),
-          ],
-        ),
-    ));
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: new BorderRadius.circular(30.0)),
+          child: Row(
+            children: <Widget>[ 
+
+            // First column for main content
+            Flexible(
+              child:
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Image.asset(
+                        iconAddress,
+                        height: 25,
+                        width: 25),
+                    new Text(widget.title,
+                        style: TextStyle(
+                            color: fontColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,)),
+                    new Text(widget.description,
+                        style: TextStyle(
+                            color: fontColor,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 10)),      
+                  ],
+                ),
+              ),
+
+            // Second column for checkmark
+            Container(
+              child:    
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget> [
+                    Visibility(
+                      child:
+                        new Image.asset(
+                            'assets/images/check.png',
+                            height: 40,
+                            width: 40),
+                      visible: completeStatus,
+                    ),
+                  ]
+                ),
+              ),
+            ],
+          ), 
+        ) 
+    );
   }
 }
