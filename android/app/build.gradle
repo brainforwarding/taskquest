@@ -28,6 +28,21 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     compileSdkVersion 28
 
+    signingConfigs {
+        debug {
+            storeFile file('key.jks')
+            storePassword 'edtasks'
+            keyAlias 'androiddebugkey'
+            keyPassword 'edtasks'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
