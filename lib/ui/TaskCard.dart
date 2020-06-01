@@ -66,7 +66,6 @@ class _TaskCardState extends State<TaskCard> {
 // make colors gray after clicking
   void colorDull() { // click gray colors
     setState(() {
-      //print("making colors dull");
       buttonText = "Undo";
       backgroundColor = Color(0xFFEEEEEE);
       if (widget.subject == 'math') {
@@ -92,16 +91,12 @@ class _TaskCardState extends State<TaskCard> {
 
 // set initial colors based on status
   void initialColors() {
-    print("subject is ");
-    print(widget.subject);
     if (completeStatus == false) {
-      print("colors will be vivid");
       setState(() {
         colorVivid();
       });
     }
     if (completeStatus == true) {
-      print("colors will be dull");
       setState(() {
         colorDull();
       });
@@ -172,7 +167,6 @@ class _TaskCardState extends State<TaskCard> {
     initialColors();
     return new GestureDetector(
       onTap: (){
-          print("Container clicked");
           clearTask();
       },
         child: Container(

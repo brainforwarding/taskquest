@@ -11,9 +11,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 // Google sign in basic DONE
 // Make classrooms load DONE 
-// View classrooms and status
-// Save new user with tasks
-// Update tasks on tap
+// Make list of classroom IDs DONE
+// Use IDs to get lists of students 
+// Use IDs to get lists of teachers
+// POST new students and teachers to backend as new users
+// POST new student IDs to Classroom Memberships
+// POST student IDs and tasks to Classroom Progress
+// POST update tasks on tap with date
 // Google login button DONE
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -34,6 +38,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GoogleSignInAccount _currentUser;
   String _classesText;
+  List _classIds;
+  //Map _rosters;
 
   @override
   void dispose() {    
@@ -51,22 +57,33 @@ class _LoginState extends State<Login> {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
-        print('current user is ');
+        _classIds = List<String>();
+        //_rosters = Map<String, List>();
+        print('current user is blas ');
         print(_currentUser);
+        print('_classIds is $_classIds');
       });
       if (_currentUser != null) {
+        print('getting classes');
         _handleGetClasses();
+        print('_classIds is NOW $_classIds');
+        _handleGetRosters('43333863362');
+        /*for (int i = 0; i < _classIds.length; i++) {
+          print('bingo');
+          _handleGetRosters(_classIds[i]);
+        }*/
       }
     });
     //_googleSignIn.signIn();
   }
 
+  // Gets users classroom IDs
   Future<void> _handleGetClasses() async {
     setState(() {
       _classesText = "Loading classes...";
     });
-    print('loading classes and user is ');
-    print(_currentUser);
+    //print('loading classes and user is ');
+    //print(_currentUser);
     final http.Response response = await http.get(
       'https://classroom.googleapis.com/v1/courses',
       //'?requestMask.includeField=courses',
@@ -77,13 +94,30 @@ class _LoginState extends State<Login> {
         _classesText = "Classes API gave a ${response.statusCode} "
             "response. Check logs for details.";
       });
-      print('Classes API ${response.statusCode} response: ${response.body}');
+      //print('Classes API ${response.statusCode} response: ${response.body}');
       return;
     }
     final Map<String, dynamic> data = json.decode(response.body);
-    print('the data is ');
-    print(data);
+    //print('the data is ');
+    //print(data);
     //final String classesList = _classesList(data);
+    //var classIds = data.map<String>((m) => m['id'] as int).toList();
+    var classIdsPrep = data.values.toList();
+    //List classIds;
+    classIdsPrep = classIdsPrep[0];
+    //print('classIdsPrep is ');
+    //print(classIdsPrep);
+    //print('classIdsPrep[1] is ');
+    //print(classIdsPrep[1]);
+    var adder;
+    for (int i = 0; i < classIdsPrep.length; i++) {
+      //print('now adding ');
+      adder = classIdsPrep[i];
+      //print(adder['id']);
+      _classIds.add(adder['id']);
+    }
+    print('_classIds is ');
+    print(_classIds);
     setState(() {
       if (data != null) {
         _classesText = "Classes loaded!";
@@ -92,6 +126,39 @@ class _LoginState extends State<Login> {
       }
     });
   }
+
+  // Gets users classroom rosters
+  Future<void> _handleGetRosters(classId) async {
+    setState(() {
+     _classesText = "Loading rosters...";
+    });
+    print('loading rosters and user is ');
+    print(_currentUser);
+    final http.Response response = await http.get(
+      'https://classroom.googleapis.com/v1/courses/$classId/students',
+      //'?requestMask.includeField=courses',
+      headers: await _currentUser.authHeaders,
+    );
+    if (response.statusCode != 200) {
+      setState(() {
+        print("Classes API gave a ${response.statusCode} "
+            "response. Check logs for details.");
+      });
+      print('Classes API ${response.statusCode} response: ${response.body}');
+      return;
+    }
+    final Map<String, dynamic> data = json.decode(response.body);
+    print('the roster data is ');
+    print(data);
+    //final String classesList = _classesList(data);
+    setState(() {
+      if (data != null) {
+        print("Roster loaded!");
+      } else {
+        print("No rosters.");
+      }
+    });
+  } 
 
   /*String _listClasses(Map<String, dynamic> data) {
     final List<dynamic> connections = data['connections'];
@@ -135,6 +202,7 @@ class _LoginState extends State<Login> {
           ),
           const Text("Signed in successfully."),
           Text(_classesText ?? ''),
+          for(var item in _classIds) Text(item),
           RaisedButton(
             child: const Text('SIGN OUT'),
             onPressed: _handleSignOut,
