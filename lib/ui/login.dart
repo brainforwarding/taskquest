@@ -1,4 +1,4 @@
-// import 'package:covidtasklist/resources/httpRequests.dart';
+import 'package:covidtasklist/resources/httpRequests.dart';
 // import 'package:covidtasklist/ui/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
@@ -12,8 +12,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 // Google sign in basic DONE
 // Make classrooms load DONE 
 // Make list of classroom IDs DONE
-// Use IDs to get lists of students 
-// Use IDs to get lists of teachers
+// Use IDs to get lists of students DONE
+// Use IDs to get lists of teachers DONE
 // POST new students and teachers to backend as new users
 // POST new student IDs to Classroom Memberships
 // POST student IDs and tasks to Classroom Progress
@@ -38,8 +38,44 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GoogleSignInAccount _currentUser;
   String _classesText;
-  List _classIds;
+  List<String> _classIds;
   //Map _rosters;
+
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+      setState(() {
+        _currentUser = account;
+        //_classIds = List<String>();
+        //_rosters = Map<String, List>();
+        print('current user is blas ');
+        print(_currentUser);
+        print('_classIds is $_classIds');
+      });
+      if (_currentUser != null) {
+        print('getting classes');
+        _handleGetClasses();
+        //_handleGetTeachers('43333863362');
+        // Get teacher data per class
+        // handlegetteachers per class
+        // per teacher, POST to API if not already on it  
+      }
+
+      print('_classIds is NOW $_classIds');
+
+      if (_classIds != null) {
+        print("class ids are");
+        print(_classIds);
+        for (int i = 0; i < _classIds.length; i++) {
+          print('bingo');
+          print(_classIds[i]);
+          _handleGetTeachers(_classIds[i]);
+        }
+      }
+    });
+    //_googleSignIn.signIn();
+  }
 
   @override
   void dispose() {    
@@ -51,42 +87,15 @@ class _LoginState extends State<Login> {
   final title = TextEditingController();
   final description = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      setState(() {
-        _currentUser = account;
-        _classIds = List<String>();
-        //_rosters = Map<String, List>();
-        print('current user is blas ');
-        print(_currentUser);
-        print('_classIds is $_classIds');
-      });
-      if (_currentUser != null) {
-        print('getting classes');
-        _handleGetClasses();
-        print('_classIds is NOW $_classIds');
-        _handleGetRosters('43333863362');
-        /*for (int i = 0; i < _classIds.length; i++) {
-          print('bingo');
-          _handleGetRosters(_classIds[i]);
-        }*/
-      }
-    });
-    //_googleSignIn.signIn();
-  }
+  
 
   // Gets users classroom IDs
   Future<void> _handleGetClasses() async {
     setState(() {
       _classesText = "Loading classes...";
     });
-    //print('loading classes and user is ');
-    //print(_currentUser);
     final http.Response response = await http.get(
       'https://classroom.googleapis.com/v1/courses',
-      //'?requestMask.includeField=courses',
       headers: await _currentUser.authHeaders,
     );
     if (response.statusCode != 200) {
@@ -94,45 +103,46 @@ class _LoginState extends State<Login> {
         _classesText = "Classes API gave a ${response.statusCode} "
             "response. Check logs for details.";
       });
-      //print('Classes API ${response.statusCode} response: ${response.body}');
       return;
     }
     final Map<String, dynamic> data = json.decode(response.body);
-    //print('the data is ');
-    //print(data);
-    //final String classesList = _classesList(data);
-    //var classIds = data.map<String>((m) => m['id'] as int).toList();
+    print("course data to be sent is");
+    print(data["courses"]);
+
+    //HttpRequests().createCourses("create_courses", data["courses"]);
+    HttpRequests().createCourses("create_courses", response.body);
+
+    await HttpRequests().getCourse("get_course", "43333863362").then((response) {
+      print("Response for get Courses is");
+      print(response);
+    });
+
     var classIdsPrep = data.values.toList();
-    //List classIds;
     classIdsPrep = classIdsPrep[0];
-    //print('classIdsPrep is ');
-    //print(classIdsPrep);
-    //print('classIdsPrep[1] is ');
-    //print(classIdsPrep[1]);
     var adder;
+    List _classIdsTemp;
+    _classIdsTemp = List<String>();
     for (int i = 0; i < classIdsPrep.length; i++) {
-      //print('now adding ');
       adder = classIdsPrep[i];
-      //print(adder['id']);
-      _classIds.add(adder['id']);
+      _classIdsTemp.add(adder['id']);
     }
-    print('_classIds is ');
-    print(_classIds);
     setState(() {
       if (data != null) {
         _classesText = "Classes loaded!";
+        _classIds = _classIdsTemp;
+        print("state set");
       } else {
         _classesText = "No classes.";
       }
     });
   }
 
-  // Gets users classroom rosters
-  Future<void> _handleGetRosters(classId) async {
+  // Gets users classroom students
+  Future<void> _handleGetStudents(classId) async {
     setState(() {
-     _classesText = "Loading rosters...";
+     _classesText = "Loading students...";
     });
-    print('loading rosters and user is ');
+    print('loading students and user is ');
     print(_currentUser);
     final http.Response response = await http.get(
       'https://classroom.googleapis.com/v1/courses/$classId/students',
@@ -148,14 +158,47 @@ class _LoginState extends State<Login> {
       return;
     }
     final Map<String, dynamic> data = json.decode(response.body);
-    print('the roster data is ');
+    print('the roster of students is is ');
     print(data);
     //final String classesList = _classesList(data);
     setState(() {
       if (data != null) {
-        print("Roster loaded!");
+        print("Students loaded!");
       } else {
-        print("No rosters.");
+        print("No students.");
+      }
+    });
+  } 
+
+  // Gets teachers for a class ID
+  Future<void> _handleGetTeachers(classId) async {
+    setState(() {
+     _classesText = "Loading teachers...";
+    });
+    print('loading teachers and user is ');
+    print(_currentUser);
+    final http.Response response = await http.get(
+      'https://classroom.googleapis.com/v1/courses/$classId/teachers',
+      //'?requestMask.includeField=courses',
+      headers: await _currentUser.authHeaders,
+    );
+    if (response.statusCode != 200) {
+      setState(() {
+        print("Classes API gave a ${response.statusCode} "
+            "response. Check logs for details.");
+      });
+      print('Classes API ${response.statusCode} response: ${response.body}');
+      return;
+    }
+    final Map<String, dynamic> data = json.decode(response.body);
+    print('the list of teachers for class is ');
+    print(data);
+    //final String classesList = _classesList(data);
+    setState(() {
+      if (data != null) {
+        print("Teachers loaded!");
+      } else {
+        print("No teachers.");
       }
     });
   } 
@@ -203,6 +246,7 @@ class _LoginState extends State<Login> {
           const Text("Signed in successfully."),
           Text(_classesText ?? ''),
           for(var item in _classIds) Text(item),
+         // Text()
           RaisedButton(
             child: const Text('SIGN OUT'),
             onPressed: _handleSignOut,
