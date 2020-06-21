@@ -1,13 +1,20 @@
 import 'package:covidtasklist/resources/httpRequests.dart';
 import 'package:covidtasklist/ui/menu.dart';
+import 'package:covidtasklist/ui/previousScreenButton.dart';
 import 'package:flutter/material.dart';
 
 class TaskDetail extends StatefulWidget {
+
+  final Function clearTask;
+
+  TaskDetail(this.clearTask);
+
   @override
   _TaskDetailState createState() => _TaskDetailState();
 }
 
 class _TaskDetailState extends State<TaskDetail> {
+    
   @override
   void initState() {
     super.initState();
@@ -27,12 +34,12 @@ class _TaskDetailState extends State<TaskDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Task Detail'),
-      ),
-      drawer: Drawer(
-        child: Menu(),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Task Detail'),
+      // ),
+      // drawer: Drawer(
+      //   child: Menu(),
+      // ),
       body: allTasks != null
           ? Container(
               padding: const EdgeInsets.only(
@@ -42,11 +49,16 @@ class _TaskDetailState extends State<TaskDetail> {
                   child: Container(
                     padding: const EdgeInsets.only(
                         left: 20, right: 20, top: 20, bottom: 20),
-                    child: Text(
-                      'Arts',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 80),
-                      textAlign: TextAlign.left,
+                    child: Column(
+                      children: <Widget>[
+                        PreviousScreenButton(),
+                        Text(
+                          'Arts',
+                          style:
+                              TextStyle(fontWeight: FontWeight.bold, fontSize: 80),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
                     ),
                     color: Color(0xFFFEEEEE),
                     width: double.infinity,
@@ -110,7 +122,7 @@ class _TaskDetailState extends State<TaskDetail> {
                 ),
                 Container(
                   child: new RaisedButton(
-                    onPressed: null,
+                    onPressed: widget.clearTask,
                     child: Text(
                       'Marcar como completada',
                       style: TextStyle(fontWeight: FontWeight.bold),

@@ -1,3 +1,4 @@
+import 'package:covidtasklist/ui/detailPage.dart';
 import 'package:flutter/material.dart';
 
 class TaskCard extends StatefulWidget {
@@ -166,8 +167,11 @@ class _TaskCardState extends State<TaskCard> {
   Widget build(BuildContext context) {
     initialColors();
     return new GestureDetector(
-      onTap: (){
-          clearTask();
+      onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TaskDetail(clearTask),
+                ));
       },
         child: Container(
           padding: const EdgeInsets.all(8),

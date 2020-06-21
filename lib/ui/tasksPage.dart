@@ -38,17 +38,19 @@ class _TasksPageState extends State<TasksPage> {
         child: Menu(),
       ),
       body: allTasks != null ? 
-        GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-          children: 
-          <Widget>
-          [...allTasks.map((item) => TaskCard(
-                  item['title'],item['description'],item['subject']))
-              .toList(),]
+        Container(
+          child: GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 2,
+            children: 
+            <Widget>
+            [...allTasks.map((item) => TaskCard(
+                    item['title'],item['description'],item['subject']))
+                .toList(),]
+          ),
         ) :  Center(child: CircularProgressIndicator(),),        
     );
   }
