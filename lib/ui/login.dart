@@ -14,11 +14,18 @@ import 'package:google_sign_in/google_sign_in.dart';
 // Make list of classroom IDs DONE
 // Use IDs to get lists of students DONE
 // Use IDs to get lists of teachers DONE
-// POST new students and teachers to backend as new users
-// POST new student IDs to Classroom Memberships
-// POST student IDs and tasks to Classroom Progress
+// POST new teacher courses to backend as new courses... DONE
+// POST new teacher to backend as new user... DONE
+// POST new student to backend as new user... DONE
+// POST student IDs and tasks to Classroom Progress 
+// Link students to tasks 
 // POST update tasks on tap with date
 // Google login button DONE
+
+// Dropdown of courses
+// Get list of students based on selected course
+// Add list of students to POST request
+
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -54,9 +61,10 @@ class _LoginState extends State<Login> {
         print('_classIds is $_classIds');
       });
       if (_currentUser != null) {
-        print('getting classes');
+        //print('getting classes');
         _handleGetClasses();
         //_handleGetTeachers('43333863362');
+        _handleGetStudents('43333863362');
         // Get teacher data per class
         // handlegetteachers per class
         // per teacher, POST to API if not already on it  
@@ -70,7 +78,7 @@ class _LoginState extends State<Login> {
         for (int i = 0; i < _classIds.length; i++) {
           print('bingo');
           print(_classIds[i]);
-          _handleGetTeachers(_classIds[i]);
+          //_handleGetTeachers(_classIds[i]);
         }
       }
     });
@@ -106,11 +114,13 @@ class _LoginState extends State<Login> {
       return;
     }
     final Map<String, dynamic> data = json.decode(response.body);
-    print("course data to be sent is");
-    print(data["courses"]);
+    //print("course data to be sent is");
+    //print(data["courses"]);
+    //String courseData = data["courses"].toString();
 
-    //HttpRequests().createCourses("create_courses", data["courses"]);
-    HttpRequests().createCourses("create_courses", response.body);
+    //HttpRequests().createCourses("create_courses", courseData);
+    HttpRequests().createCourses("create_courses", data["courses"]);
+    //HttpRequests().createCourses("create_courses", response.body);
 
     await HttpRequests().getCourse("get_course", "43333863362").then((response) {
       print("Response for get Courses is");
@@ -151,15 +161,16 @@ class _LoginState extends State<Login> {
     );
     if (response.statusCode != 200) {
       setState(() {
-        print("Classes API gave a ${response.statusCode} "
+        print("Students API gave a ${response.statusCode} "
             "response. Check logs for details.");
       });
-      print('Classes API ${response.statusCode} response: ${response.body}');
+      print('Students API ${response.statusCode} response: ${response.body}');
       return;
     }
     final Map<String, dynamic> data = json.decode(response.body);
-    print('the roster of students is is ');
-    print(data);
+    print('the roster of students is ');
+    print(data["students"]);
+    HttpRequests().createStudent("create_student", data["students"]);
     //final String classesList = _classesList(data);
     setState(() {
       if (data != null) {
@@ -192,7 +203,8 @@ class _LoginState extends State<Login> {
     }
     final Map<String, dynamic> data = json.decode(response.body);
     print('the list of teachers for class is ');
-    print(data);
+    print(data["teachers"]);
+    HttpRequests().createTeacher("create_teacher", data["teachers"]);
     //final String classesList = _classesList(data);
     setState(() {
       if (data != null) {

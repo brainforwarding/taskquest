@@ -48,28 +48,88 @@ class HttpRequests {
     }
   }
 
+
+// Adds a new course
   Future<dynamic> createCourses(action, courses) async { 
     print("courses are being created"); 
     print(action);
     print(courses);  
-    print(jsonEncode(<String, dynamic>{
+    var data = jsonEncode(<String, dynamic>{
         'action': action,
         'courses': courses,
-      }));    
+      });  
+    //print("DATA to be sent is ");
+    //print(data); 
     final http.Response response = await http.post(
       'https://rex6jd3lq6.execute-api.us-east-1.amazonaws.com/default/',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: courses,
+      body: data,
     );
-    if (response.statusCode == 201) {
-      print("Success!");
+    if (response.statusCode == 200) {
+      print("Success! Status 200");
       print(response);
     }
     else {
-      print("Failure :(");
+      print("Failure :( Code is: ");
+      print(response.statusCode);
+    }
+  }
+
+// Adds a new teacher
+  Future<dynamic> createTeacher(action, teacher) async { 
+    print("teachers are being created"); 
+    print(action);
+    print(teacher);  
+    var data = jsonEncode(<String, dynamic>{
+        'action': action,
+        'teachers': teacher,
+      });  
+    print("TEACHER DATA to be sent is ");
+    print(data); 
+    final http.Response response = await http.post(
+      'https://rex6jd3lq6.execute-api.us-east-1.amazonaws.com/default/',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: data,
+    );
+    if (response.statusCode == 200) {
+      print("Teacher creation Success! Status 200");
       print(response);
+    }
+    else {
+      print("Failure :( Code is: ");
+      print(response.statusCode);
+    }
+  }
+
+  // Adds a new student
+  Future<dynamic> createStudent(action, student) async { 
+    print("students are being created"); 
+    print(action);
+    print(student);  
+    var data = jsonEncode(<String, dynamic>{
+        'action': action,
+        'student': student,
+      });  
+    print("STUDENT DATA to be sent is ");
+    print(data); 
+    final http.Response response = await http.post(
+      'https://j6dcsv9h2d.execute-api.us-east-1.amazonaws.com/default',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: data,
+    );
+    if (response.statusCode == 200) {
+      print("Student creation Success! Status 200");
+      print(response);
+    }
+    else {
+      print("Failure :( Code is: ");
+      print(response.statusCode);
     }
   }
 
