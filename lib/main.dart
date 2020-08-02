@@ -1,3 +1,4 @@
+import 'package:covidtasklist/ui/login.dart';
 import 'package:flutter/material.dart';
 import 'package:covidtasklist/ui/tasksPage.dart';
 /*import 'package:google_sign_in/google_sign_in.dart';
@@ -20,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-        home: new TasksPage(),
+        home: new Login(),
         theme: new ThemeData(
             primarySwatch: Colors.lightBlue,
             primaryTextTheme:

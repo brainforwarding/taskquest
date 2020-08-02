@@ -42,13 +42,11 @@ class _TaskDetailState extends State<TaskDetail> {
       // ),
       body: allTasks != null
           ? Container(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 20),
               child: Column(children: <Widget>[
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 20, bottom: 20),
+                        right: 20, top: 25, bottom: 20),
                     child: Column(
                       children: <Widget>[
                         PreviousScreenButton(),

@@ -1,4 +1,5 @@
 import 'package:covidtasklist/resources/httpRequests.dart';
+import 'package:covidtasklist/ui/tasksPage.dart';
 // import 'package:covidtasklist/ui/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
@@ -10,15 +11,15 @@ import "package:http/http.dart" as http;
 import 'package:google_sign_in/google_sign_in.dart';
 
 // Google sign in basic DONE
-// Make classrooms load DONE 
+// Make classrooms load DONE
 // Make list of classroom IDs DONE
 // Use IDs to get lists of students DONE
 // Use IDs to get lists of teachers DONE
 // POST new teacher courses to backend as new courses... DONE
 // POST new teacher to backend as new user... DONE
 // POST new student to backend as new user... DONE
-// POST student IDs and tasks to Classroom Progress 
-// Link students to tasks 
+// POST student IDs and tasks to Classroom Progress
+// Link students to tasks
 // POST update tasks on tap with date
 // Google login button DONE
 
@@ -32,8 +33,7 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
   ],
 );
 
-class Login extends StatefulWidget {  
-
+class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
         _handleGetStudents('43333863362');
         // Get teacher data per class
         // handlegetteachers per class
-        // per teacher, POST to API if not already on it  
+        // per teacher, POST to API if not already on it
       }
 
       print('_classIds is NOW $_classIds');
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
   }
 
   @override
-  void dispose() {    
+  void dispose() {
     title.dispose();
     description.dispose();
     super.dispose();
@@ -93,8 +93,6 @@ class _LoginState extends State<Login> {
 
   final title = TextEditingController();
   final description = TextEditingController();
-
-  
 
   // Gets users classroom IDs
   Future<void> _handleGetClasses() async {
@@ -121,7 +119,9 @@ class _LoginState extends State<Login> {
     HttpRequests().createCourses("create_courses", data["courses"]);
     //HttpRequests().createCourses("create_courses", response.body);
 
-    await HttpRequests().getCourse("get_course", "43333863362").then((response) {
+    await HttpRequests()
+        .getCourse("get_course", "43333863362")
+        .then((response) {
       print("Response for get Courses is");
       print(response);
     });
@@ -149,7 +149,7 @@ class _LoginState extends State<Login> {
   // Gets users classroom students
   Future<void> _handleGetStudents(classId) async {
     setState(() {
-     _classesText = "Loading students...";
+      _classesText = "Loading students...";
     });
     print('loading students and user is ');
     print(_currentUser);
@@ -178,12 +178,12 @@ class _LoginState extends State<Login> {
         print("No students.");
       }
     });
-  } 
+  }
 
   // Gets teachers for a class ID
   Future<void> _handleGetTeachers(classId) async {
     setState(() {
-     _classesText = "Loading teachers...";
+      _classesText = "Loading teachers...";
     });
     print('loading teachers and user is ');
     print(_currentUser);
@@ -212,7 +212,7 @@ class _LoginState extends State<Login> {
         print("No teachers.");
       }
     });
-  } 
+  }
 
   /*String _listClasses(Map<String, dynamic> data) {
     final List<dynamic> connections = data['connections'];
@@ -234,7 +234,15 @@ class _LoginState extends State<Login> {
 */
   Future<void> _handleSignIn() async {
     try {
-      await _googleSignIn.signIn();
+      await _googleSignIn.signIn().whenComplete(() {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return TasksPage();
+            },
+          ),
+        );
+      });
     } catch (error) {
       print(error);
     }
@@ -270,15 +278,67 @@ class _LoginState extends State<Login> {
         ],
       );
     } else {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          const Text("You are not currently signed in."),
-          GoogleSignInButton(
-            //this.text('Sign in with Google'),
-            onPressed: _handleSignIn,
-          ),
-        ],
+      return Container(
+        padding: EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            const SizedBox(height: 5),
+            Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text("Welcome to", style: TextStyle(fontSize: 20, color: Color(0xFF22215B))),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text("EdTasks",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 40, color: Color(0xFF22215B))),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text("Best cloud platform for",
+                        style: TextStyle(fontSize: 20, color: Color(0xFF22215B))),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text("organizing your tasks to achieve",
+                        style: TextStyle(fontSize: 20, color: Color(0xFF22215B))),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text("your learning goals.",
+                        style: TextStyle(fontSize: 20, color: Color(0xFF22215B))),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text("Join For Free.",
+                        style: TextStyle(fontSize: 20, color: Color(0xFF22215B))),
+                  ],
+                ),
+              ],
+            ),
+            GoogleSignInButton(
+              //this.text('Sign in with Google'),
+              onPressed: _handleSignIn,
+            ),
+          ],
+        ),
       );
     }
   }
@@ -286,12 +346,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Google Sign In'),
-        ),
         body: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
-        ));
+      constraints: const BoxConstraints.expand(),
+      child: _buildBody(),
+    ));
   }
 }

@@ -12,14 +12,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 // Get list of students based on selected course
 // Add list of students to POST request
 
-/* GoogleSignIn _googleSignIn = GoogleSignIn(
+GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
     'email',
     'https://www.googleapis.com/auth/classroom.profile.emails',
     'https://www.googleapis.com/auth/classroom.rosters.readonly',
     'https://www.googleapis.com/auth/classroom.courses.readonly',
   ],
-); */
+); 
 
 class TasksAssignPage extends StatefulWidget {
 
