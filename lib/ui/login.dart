@@ -22,10 +22,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 // POST update tasks on tap with date
 // Google login button DONE
 
-// Dropdown of courses
-// Get list of students based on selected course
-// Add list of students to POST request
-
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -51,19 +47,22 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
+    _currentUser = _googleSignIn.currentUser;
+    print("current user is reloaded ");
+    print(_currentUser);
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
         //_classIds = List<String>();
         //_rosters = Map<String, List>();
-        print('current user is blas ');
-        print(_currentUser);
+        //print('current user is ');
+        //print(_currentUser);
         print('_classIds is $_classIds');
       });
       if (_currentUser != null) {
         //print('getting classes');
         _handleGetClasses();
-        //_handleGetTeachers('43333863362');
+        _handleGetTeachers('43333863362');
         _handleGetStudents('43333863362');
         // Get teacher data per class
         // handlegetteachers per class
@@ -257,7 +256,8 @@ class _LoginState extends State<Login> {
           ),
           const Text("Signed in successfully."),
           Text(_classesText ?? ''),
-          for(var item in _classIds) Text(item),
+          // CREATES ERROR, lists classes:
+          //for(var item in _classIds) Text(item),
          // Text()
           RaisedButton(
             child: const Text('SIGN OUT'),
