@@ -1,4 +1,5 @@
 import 'package:covidtasklist/resources/httpRequests.dart';
+import 'package:covidtasklist/ui/tasksAssignPage.dart';
 import 'package:covidtasklist/ui/tasksPage.dart';
 // import 'package:covidtasklist/ui/menu.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,6 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     _currentUser = _googleSignIn.currentUser;
-    print("current user is reloaded ");
     print(_currentUser);
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
@@ -61,9 +61,9 @@ class _LoginState extends State<Login> {
       });
       if (_currentUser != null) {
         //print('getting classes');
-        _handleGetClasses();
-        _handleGetTeachers('43333863362');
-        _handleGetStudents('43333863362');
+        //_handleGetClasses();
+        //_handleGetTeachers('43333863362');
+        //_handleGetStudents('43333863362');
         // Get teacher data per class
         // handlegetteachers per class
         // per teacher, POST to API if not already on it
@@ -238,7 +238,8 @@ class _LoginState extends State<Login> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return TasksPage();
+              // return TasksPage();
+              return TasksAssignPage(currentUser: _currentUser);
             },
           ),
         );
